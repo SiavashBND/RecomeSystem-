@@ -17,7 +17,7 @@ class ContentRecommender:
         self.tfidf = self.vectorizer.fit_transform(self.df["soup"])
         self.sim = cosine_similarity(self.tfidf)
 
-        # برای پیدا کردن سریع index فیلم با عنوان
+        
         self.title_to_idx = {t: i for i, t in enumerate(self.df["title"])}
 
     def recommend(self, title: str, top_k: int = 10):
@@ -28,7 +28,6 @@ class ContentRecommender:
         scores = list(enumerate(self.sim[idx]))
         scores = sorted(scores, key=lambda x: x[1], reverse=True)
 
-        # خود فیلم اول لیست میاد، حذفش می‌کنیم
         scores = scores[1: top_k + 1]
 
         recs = []
